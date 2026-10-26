@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f4">
+  <title>The Praise Board — On-chain appreciation</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="The Praise Board home"><span class="brand-mark">✳</span> The Praise Board</a>
+    <div class="wallet-area">
+      <span class="network-pill"><span class="status-dot" id="networkDot"></span><span id="networkLabel">Checking network…</span></span>
+      <button class="button button-dark" id="connectButton" type="button">Connect wallet</button>
+      <span class="wallet-address" id="walletAddress" hidden></span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span>✦</span> GOOD WORK DESERVES TO BE SEEN</p>
+        <h1>A little praise<br>goes <em>a long way.</em></h1>
+        <p class="hero-description">A community-powered wall of appreciation. Leave a note, send a tip, and make someone's day — transparently, on-chain.</p>
+        <div class="hero-foot"><span class="hero-star">✳</span><span>Every kind word becomes part of the story.</span></div>
+      </div>
+      <div class="note-card" aria-label="On-chain note information">
+        <span class="card-sparkle">✳</span>
+        <p class="card-label">YOUR MESSAGE, ON-CHAIN</p>
+        <p class="card-message">A kind word becomes a lasting part of the board.</p>
+        <div class="card-byline"><span class="avatar">↗</span><span><strong>Publicly verifiable</strong><small>Recorded by the PraiseBoard contract</small></span><span class="card-heart">◎</span></div>
+      </div>
+    </section>
+
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+    <section class="dashboard">
+      <div class="form-card">
+        <div class="section-heading">
+          <div><p class="eyebrow">PASS IT ON</p><h2>Send some praise</h2></div>
+          <span class="heading-icon">↗</span>
+        </div>
+        <p class="form-intro">Your tip and note will be visible to everyone, forever.</p>
+        <form id="tipForm">
+          <label for="amount">Your tip <span>ETH</span></label>
+          <div class="amount-input"><input id="amount" name="amount" type="number" min="0.000001" step="any" placeholder="0.01" required inputmode="decimal"><span>ETH</span></div>
+          <div class="suggestions" aria-label="Suggested tip amounts">
+            <button type="button" data-amount="0.001">0.001 ETH</button>
+            <button type="button" data-amount="0.005">0.005 ETH</button>
+            <button type="button" data-amount="0.01">0.01 ETH</button>
+          </div>
+          <label for="note">Your note <span id="byteCount">0 / 280 bytes</span></label>
+          <textarea id="note" name="note" rows="4" maxlength="280" placeholder="Share a kind word..." required></textarea>
+          <p class="privacy-note"><span>◎</span> Notes are public and permanently recorded on the blockchain.</p>
+          <button class="button button-primary" id="sendButton" type="submit">Send tip <span>↗</span></button>
+          <p class="irreversible">Tips are irreversible after confirmation. Only send Sepolia test ETH.</p>
+        </form>
+      </div>
+      <div class="wall-column">
+        <div class="stats">
+          <div class="stat-card"><span class="stat-icon">♡</span><span class="stat-label">TOTAL TIPS</span><strong id="totalTips">—</strong></div>
+          <div class="stat-card"><span class="stat-icon">✧</span><span class="stat-label">TOTAL RECEIVED</span><strong><span id="totalAmount">—</span> <small>ETH</small></strong></div>
+        </div>
+        <section class="wall">
+          <div class="wall-heading"><div><p class="eyebrow">THE COMMUNITY</p><h2>Supporter wall</h2></div><button id="refreshButton" class="refresh-button" type="button" aria-label="Refresh supporter wall">↻</button></div>
+          <p class="wall-subtitle">Every entry is independently verifiable on Sepolia.</p>
+          <div id="wallStatus" class="wall-status">Loading the on-chain supporter wall…</div>
+          <div id="supporterList" class="supporter-list"></div>
+        </section>
+      </div>
+    </section>
+    <footer><span>Built with care, secured by Ethereum.</span><span>SEPOLIA TESTNET <span class="status-dot"></span></span></footer>
+  </main>
+</body>
+</html>
